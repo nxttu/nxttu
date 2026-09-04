@@ -31,8 +31,8 @@
 
   const trail = [];
 
-  let trailLength = 25;
-  let pointSize = 8;
+  let trailLength = 12;
+  let pointSize = 7;
   let hue = 0;
   let hueSpeed = 1.5;
 
@@ -53,12 +53,12 @@
   }
 
   function updateTrail() {
-    trail[0].x = lerp(trail[0].x, mouse.x, 0.35);
-    trail[0].y = lerp(trail[0].y, mouse.y, 0.35);
+    trail[0].x = lerp(trail[0].x, mouse.x, 0.5);
+    trail[0].y = lerp(trail[0].y, mouse.y, 0.5);
 
     for (let i = 1; i < trail.length; i++) {
-      trail[i].x = lerp(trail[i].x, trail[i - 1].x, 0.35);
-      trail[i].y = lerp(trail[i].y, trail[i - 1].y, 0.35);
+      trail[i].x = lerp(trail[i].x, trail[i - 1].x, 0.5);
+      trail[i].y = lerp(trail[i].y, trail[i - 1].y, 0.5);
     }
   }
 
@@ -110,8 +110,8 @@
     "a, button, input, textarea, select, .btn, [data-cursor-hover]";
 
   function hoverOn() {
-    trailLength = 40;
-    pointSize = 14;
+    trailLength = 18;
+    pointSize = 12;
     hueSpeed = 5;
 
     while (trail.length < trailLength) {
@@ -126,8 +126,8 @@
   }
 
   function hoverOff() {
-    trailLength = 25;
-    pointSize = 8;
+    trailLength = 12;
+    pointSize = 7;
     hueSpeed = 1.5;
 
     trail.length = trailLength;
