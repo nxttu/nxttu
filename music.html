@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NextToYou — nxttu.</title>
+<title>NextToYou — music</title>
 <link rel="icon" type="image/jpg" href="/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Unbounded:wght@200;400;700;900&display=swap" rel="stylesheet">
@@ -16,15 +16,10 @@
   <div class="header-right">
     <nav>
       <select class="lang-select" id="lang-selector">
-        <option value="en" selected>EN</option>
-        <option value="ua">UA</option>
-        <option value="ru">RU</option>
-        <option value="pl">PL</option>
-        <option value="it">IT</option>
-        <option value="es">ES</option>
+        <option value="en" selected>EN</option><option value="ua">UA</option><option value="ru">RU</option><option value="pl">PL</option><option value="it">IT</option><option value="es">ES</option>
       </select>
       <a href="about.html" data-i18n="nav-about">about</a>
-      <a href="music.html" data-i18n="nav-music">music</a>
+      <a href="music.html" class="active" data-i18n="nav-music">music</a>
       <a href="stats.html" data-i18n="nav-stats">stats</a>
       <a href="links.html" data-i18n="nav-links">links</a>
       <button class="theme-toggle" id="theme-btn" data-i18n="nav-theme">theme</button>
@@ -42,49 +37,83 @@
 </header>
 
 <main>
-  <!-- HERO window -->
-  <div class="win hero-window fade-in">
-    <div class="win-titlebar">
-      <span class="win-title-ic">♪</span>
-      <span class="win-title-text">nxttu. — welcome.exe</span>
-      <span class="win-controls">
-        <span class="win-btn">_</span><span class="win-btn">▢</span><span class="win-btn close">✕</span>
-      </span>
-    </div>
-    <div class="win-menu"><span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span><span><u>H</u>elp</span></div>
-    <div class="win-body hero-body">
-      <div class="cd-deco"></div>
-      <p class="hero-tag" data-i18n="hero-tag">// experimental electronic artist · est. 2021 · ukraine</p>
-      <h1 class="hero-name">nxttu.<span><br data-i18n="hero-sub">next to you.</span></h1>
-      <p class="hero-desc" data-i18n="hero-desc">
-        Combining ambient textures, breakbeat rhythms and digital noise into emotional soundscapes — focused on atmosphere and raw feeling, not traditional fucked up structure.
-      </p>
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-num">3,470+</span><span class="stat-label" data-i18n="stat-plays">plays</span></div>
-        <div class="stat"><span class="stat-num">294</span><span class="stat-label" data-i18n="stat-likes">likes</span></div>
-        <div class="stat"><span class="stat-num">23</span><span class="stat-label" data-i18n="stat-tracks">tracks</span></div>
-        <div class="stat"><span class="stat-num">5+</span><span class="stat-label" data-i18n="stat-years">years</span></div>
-      </div>
-    </div>
+  <div class="page-head fade-in">
+    <h1 class="page-title" data-i18n="label-music">02 — discography</h1>
   </div>
 
-  <!-- Quick access desktop icons -->
   <div class="win fade-in d1">
     <div class="win-titlebar">
-      <span class="win-title-ic">⊞</span>
-      <span class="win-title-text" data-i18n="home-quick">quick access</span>
+      <span class="win-title-ic">♫</span>
+      <span class="win-title-text">discography — nxttu.</span>
       <span class="win-controls"><span class="win-btn">_</span><span class="win-btn">▢</span><span class="win-btn close">✕</span></span>
     </div>
+    <div class="win-menu"><span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span><span><u>H</u>elp</span></div>
     <div class="win-body">
-      <div class="icon-grid">
-        <a class="desk-icon" href="about.html"><span class="desk-icon-ic">👤</span><span class="desk-icon-label" data-i18n="nav-about">about</span></a>
-        <a class="desk-icon" href="music.html"><span class="desk-icon-ic">♫</span><span class="desk-icon-label" data-i18n="nav-music">music</span></a>
-        <a class="desk-icon" href="stats.html"><span class="desk-icon-ic">📊</span><span class="desk-icon-label" data-i18n="nav-stats">stats</span></a>
-        <a class="desk-icon" href="links.html"><span class="desk-icon-ic">🔗</span><span class="desk-icon-label" data-i18n="nav-links">links</span></a>
+      <div class="albums-grid">
+        <div class="album-card black">
+          <div class="album-dot"></div>
+          <p class="album-era" data-i18n="era-1">era I · 2021</p>
+          <h3 class="album-title" data-i18n="album-1-title">Black Tracks</h3>
+          <p class="album-desc" data-i18n="album-1-desc">The era where everything started. Was supposed to be 40 tracks — most were lost or deleted. First trials, errors, drafts. Nothing hidden.</p>
+          <ul class="album-tracks">
+            <li><span>01 — What? (preview)</span></li>
+            <li><span>02 — What?</span></li>
+            <li><span>03 — Take me with you</span></li>
+            <li><span>04 — mama</span></li>
+            <li><span>05 — Aurelia (nxttu. remix)</span></li>
+            <li><span>06 — nxttu - life hits diff.</span></li>
+            <li><span>07 — nxttu - Sunset</span></li>
+            <li><span>08 — nxttu - 夜空の下の茶色の目</span></li>
+          </ul>
+          <a class="album-link" href="https://soundcloud.com/nxttoyo/sets/nxttu-black-tracks/s-PBOV851tQzU" target="_blank" data-i18n="sc-listen">Listen on SoundCloud</a>
+        </div>
+
+        <div class="album-card white">
+          <div class="album-dot"></div>
+          <p class="album-era" data-i18n="era-2">era II · 2025–2026</p>
+          <h3 class="album-title" data-i18n="album-2-title">White Tracks</h3>
+          <p class="album-desc" data-i18n="album-2-desc">The most emotional period. Tracks made to get things out of my system — chaos and good moments. Each made in 1–2 hours. Raw and honest.</p>
+          <ul class="album-tracks">
+            <li><span>01 — Alternative Nana</span></li>
+            <li><span>02 — PAINOFF</span></li>
+            <li><span>03 — you are pretty...</span></li>
+            <li><span>04 — Jana</span></li>
+            <li><span>05 — polarity</span></li>
+            <li><span>06 — revercity</span></li>
+            <li><span>07 — slowless</span></li>
+            <li><span>08 — extra</span></li>
+          </ul>
+          <a class="album-link" href="https://soundcloud.com/nxttoyo/sets/nxttu-white-tracks/s-7TbXCDCQMQa" target="_blank" data-i18n="sc-listen">Listen on SoundCloud</a>
+        </div>
+
+        <div class="album-card era3">
+          <div class="album-dot"></div>
+          <p class="album-era" data-i18n="era-3">era III · 2026 — ???</p>
+          <h3 class="album-title">??? Tracks</h3>
+          <p class="album-desc" data-i18n="album-3-desc">Something is being built. This era is still in progress — not sure where it's going yet, but it's coming.</p>
+          <button class="tbc-btn" id="tbc-trigger">to be continued...</button>
+        </div>
       </div>
     </div>
   </div>
 </main>
+
+<div class="modal-overlay" id="modal-container">
+  <div class="modal-content win">
+    <div class="win-titlebar">
+      <span class="win-title-ic">!</span>
+      <span class="win-title-text" data-i18n="modal-text">To stay updated and follow my upcoming releases, please subscribe to my SoundCloud or TikTok.</span>
+      <span class="win-controls"><span class="win-btn close">✕</span></span>
+    </div>
+    <div class="win-body" style="text-align:center;">
+      <div class="modal-links">
+        <a href="https://www.soundcloud.com/nxttoyo" target="_blank">SoundCloud</a>
+        <a href="https://www.tiktok.com/@nxttoyo" target="_blank">TikTok</a>
+      </div>
+      <div class="modal-close" id="modal-close-btn" data-i18n="modal-close">close</div>
+    </div>
+  </div>
+</div>
 
 <footer>
   <p data-i18n="footer-left">nxttu. · est. 2021 · ukraine</p>

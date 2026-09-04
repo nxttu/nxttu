@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NextToYou — nxttu.</title>
+<title>NextToYou — stats</title>
 <link rel="icon" type="image/jpg" href="/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Unbounded:wght@200;400;700;900&display=swap" rel="stylesheet">
@@ -16,16 +16,11 @@
   <div class="header-right">
     <nav>
       <select class="lang-select" id="lang-selector">
-        <option value="en" selected>EN</option>
-        <option value="ua">UA</option>
-        <option value="ru">RU</option>
-        <option value="pl">PL</option>
-        <option value="it">IT</option>
-        <option value="es">ES</option>
+        <option value="en" selected>EN</option><option value="ua">UA</option><option value="ru">RU</option><option value="pl">PL</option><option value="it">IT</option><option value="es">ES</option>
       </select>
       <a href="about.html" data-i18n="nav-about">about</a>
       <a href="music.html" data-i18n="nav-music">music</a>
-      <a href="stats.html" data-i18n="nav-stats">stats</a>
+      <a href="stats.html" class="active" data-i18n="nav-stats">stats</a>
       <a href="links.html" data-i18n="nav-links">links</a>
       <button class="theme-toggle" id="theme-btn" data-i18n="nav-theme">theme</button>
     </nav>
@@ -42,45 +37,24 @@
 </header>
 
 <main>
-  <!-- HERO window -->
-  <div class="win hero-window fade-in">
-    <div class="win-titlebar">
-      <span class="win-title-ic">♪</span>
-      <span class="win-title-text">nxttu. — welcome.exe</span>
-      <span class="win-controls">
-        <span class="win-btn">_</span><span class="win-btn">▢</span><span class="win-btn close">✕</span>
-      </span>
-    </div>
-    <div class="win-menu"><span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span><span><u>H</u>elp</span></div>
-    <div class="win-body hero-body">
-      <div class="cd-deco"></div>
-      <p class="hero-tag" data-i18n="hero-tag">// experimental electronic artist · est. 2021 · ukraine</p>
-      <h1 class="hero-name">nxttu.<span><br data-i18n="hero-sub">next to you.</span></h1>
-      <p class="hero-desc" data-i18n="hero-desc">
-        Combining ambient textures, breakbeat rhythms and digital noise into emotional soundscapes — focused on atmosphere and raw feeling, not traditional fucked up structure.
-      </p>
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-num">3,470+</span><span class="stat-label" data-i18n="stat-plays">plays</span></div>
-        <div class="stat"><span class="stat-num">294</span><span class="stat-label" data-i18n="stat-likes">likes</span></div>
-        <div class="stat"><span class="stat-num">23</span><span class="stat-label" data-i18n="stat-tracks">tracks</span></div>
-        <div class="stat"><span class="stat-num">5+</span><span class="stat-label" data-i18n="stat-years">years</span></div>
-      </div>
-    </div>
+  <div class="page-head fade-in">
+    <h1 class="page-title" data-i18n="label-stats">03 — stats by year</h1>
   </div>
 
-  <!-- Quick access desktop icons -->
   <div class="win fade-in d1">
     <div class="win-titlebar">
-      <span class="win-title-ic">⊞</span>
-      <span class="win-title-text" data-i18n="home-quick">quick access</span>
+      <span class="win-title-ic">📊</span>
+      <span class="win-title-text">stats.dat — nxttu.</span>
       <span class="win-controls"><span class="win-btn">_</span><span class="win-btn">▢</span><span class="win-btn close">✕</span></span>
     </div>
-    <div class="win-body">
-      <div class="icon-grid">
-        <a class="desk-icon" href="about.html"><span class="desk-icon-ic">👤</span><span class="desk-icon-label" data-i18n="nav-about">about</span></a>
-        <a class="desk-icon" href="music.html"><span class="desk-icon-ic">♫</span><span class="desk-icon-label" data-i18n="nav-music">music</span></a>
-        <a class="desk-icon" href="stats.html"><span class="desk-icon-ic">📊</span><span class="desk-icon-label" data-i18n="nav-stats">stats</span></a>
-        <a class="desk-icon" href="links.html"><span class="desk-icon-ic">🔗</span><span class="desk-icon-label" data-i18n="nav-links">links</span></a>
+    <div class="win-menu"><span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span><span><u>H</u>elp</span></div>
+    <div class="win-body" style="padding:0;">
+      <div class="stats-row">
+        <div class="stat-box"><p class="stat-box-year">2021</p><p class="stat-box-num">191</p><p class="stat-box-sub" data-i18n="stat-2021">plays · 24 likes</p></div>
+        <div class="stat-box"><p class="stat-box-year">2022</p><p class="stat-box-num">204</p><p class="stat-box-sub" data-i18n="stat-2022">plays · 24 likes</p></div>
+        <div class="stat-box"><p class="stat-box-year">2023</p><p class="stat-box-num">924</p><p class="stat-box-sub" data-i18n="stat-2023">plays · 68 likes · 13 com.</p></div>
+        <div class="stat-box"><p class="stat-box-year">2024</p><p class="stat-box-num">457</p><p class="stat-box-sub" data-i18n="stat-2024">plays · 15 likes</p></div>
+        <div class="stat-box"><p class="stat-box-year">2025</p><p class="stat-box-num">1,328</p><p class="stat-box-sub" data-i18n="stat-2025">plays · 92 likes · 15 rep.</p></div>
       </div>
     </div>
   </div>
