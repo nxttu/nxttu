@@ -242,6 +242,61 @@ function applyFont(key) {
   localStorage.setItem('nxttu-font', key);
 }
 
+/* ---------- Font dialog (Format → Font...) ---------- */
+const fontChoices = [
+  { key: 'w95', label: 'W95FA (Windows 95)' },
+  { key: 'tahoma', label: 'Tahoma' },
+  { key: 'verdana', label: 'Verdana' },
+  { key: 'times', label: 'Times New Roman' },
+  { key: 'courier', label: 'Courier New' },
+  { key: 'comic', label: 'Comic Sans MS' }
+];
+function showFontDialog() {
+  let overlay = document.getElementById('font-dialog');
+  if (overlay) { overlay.classList.add('active'); return; }
+  overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.id = 'font-dialog';
+  const current = localStorage.getItem('nxttu-font') || 'w95';
+  overlay.innerHTML = `
+    <div class="win font-dialog-win">
+      <div class="win-titlebar"><span class="win-title-text">Font</span><span class="win-controls"><span class="win-btn close">✕</span></span></div>
+      <div class="win-body" style="padding:1rem;">
+        <div class="font-dialog-label">Choose a font:</div>
+        <div class="font-dialog-list"></div>
+        <div class="font-dialog-actions">
+          <button class="fd-ok">OK</button>
+          <button class="fd-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  const list = overlay.querySelector('.font-dialog-list');
+  let selected = current;
+  const prevFont = current;
+  fontChoices.forEach(f => {
+    const item = document.createElement('div');
+    item.className = 'font-dialog-item' + (f.key === current ? ' selected' : '');
+    item.textContent = f.label;
+    item.addEventListener('click', () => {
+      list.querySelectorAll('.font-dialog-item').forEach(i => i.classList.remove('selected'));
+      item.classList.add('selected');
+      selected = f.key;
+      applyFont(f.key);
+    });
+    list.appendChild(item);
+  });
+  const close = restore => {
+    if (restore) applyFont(prevFont);
+    overlay.classList.remove('active');
+  };
+  overlay.querySelector('.fd-ok').addEventListener('click', () => { applyFont(selected); close(false); });
+  overlay.querySelector('.fd-cancel').addEventListener('click', () => close(true));
+  overlay.querySelector('.win-btn.close').addEventListener('click', () => close(true));
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(true); });
+  requestAnimationFrame(() => overlay.classList.add('active'));
+}
+
 /* ---------- Clippy Q&A ---------- */
 const clippyQA = {
   en: [
@@ -266,9 +321,8 @@ const CLIPPY_SVG = `<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg
     fill="none" stroke="url(#clipg)" stroke-width="11" stroke-linecap="round"/>
   <path d="M40 24 V92 a14 14 0 0 0 28 0 V40 a9 9 0 0 0 -18 0 V82 a4 4 0 0 0 8 0 V48"
     fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
-  <ellipse cx="45" cy="33" rx="7.5" ry="8.5" fill="#fff" stroke="#888" stroke-width="1"/>
-  <ellipse cx="62" cy="33" rx="7.5" ry="8.5" fill="#fff" stroke="#888" stroke-width="1"/>
-  <circle cx="46" cy="35" r="3" fill="#111"/><circle cx="63" cy="35" r="3" fill="#111"/>
+  <g class="clippy-eye"><ellipse cx="45" cy="33" rx="7.5" ry="8.5" fill="#fff" stroke="#888" stroke-width="1"/><circle cx="46" cy="35" r="3" fill="#111"/></g>
+  <g class="clippy-eye"><ellipse cx="62" cy="33" rx="7.5" ry="8.5" fill="#fff" stroke="#888" stroke-width="1"/><circle cx="63" cy="35" r="3" fill="#111"/></g>
   <path d="M38 25 Q45 21 52 25" stroke="#222" stroke-width="2.2" fill="none" stroke-linecap="round"/>
   <path d="M55 25 Q62 21 69 25" stroke="#222" stroke-width="2.2" fill="none" stroke-linecap="round"/>
 </svg>`;
@@ -309,6 +363,66 @@ function renderClippy() {
 }
 
 /* ---------- Window controls + taskbar ---------- */
+let topZ = 100;
+function bringFront(win) { win.style.zIndex = ++topZ; }
+
+function makeDraggable(win) {
+  const bar = win.querySelector('.win-titlebar');
+  if (!bar) return;
+  bar.addEventListener('mousedown', e => {
+    if (e.target.closest('.win-btn') || e.target.closest('.win-menu') || win.classList.contains('maximized')) return;
+    bringFront(win);
+    const rect = win.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    win.style.position = 'fixed';
+    win.style.left = rect.left + 'px';
+    win.style.top = rect.top + 'px';
+    win.style.width = rect.width + 'px';
+    win.style.height = rect.height + 'px';
+    win.style.margin = '0';
+    const move = ev => {
+      win.style.left = (rect.left + ev.clientX - sx) + 'px';
+      win.style.top = (rect.top + ev.clientY - sy) + 'px';
+    };
+    const up = () => { document.removeEventListener('mousemove', move); document.removeEventListener('mouseup', up); };
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
+    e.preventDefault();
+  });
+}
+
+function makeResizable(win) {
+  ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw'].forEach(dir => {
+    const h = document.createElement('div');
+    h.className = 'resize-handle rh-' + dir;
+    h.addEventListener('mousedown', e => {
+      if (win.classList.contains('maximized')) return;
+      bringFront(win);
+      const rect = win.getBoundingClientRect();
+      const sx = e.clientX, sy = e.clientY;
+      const sw = rect.width, sh = rect.height, sl = rect.left, st = rect.top;
+      win.style.position = 'fixed';
+      win.style.left = sl + 'px'; win.style.top = st + 'px';
+      win.style.width = sw + 'px'; win.style.height = sh + 'px'; win.style.margin = '0';
+      const move = ev => {
+        const dx = ev.clientX - sx, dy = ev.clientY - sy;
+        let nw = sw, nh = sh, nl = sl, nt = st;
+        if (dir.includes('e')) nw = Math.max(240, sw + dx);
+        if (dir.includes('s')) nh = Math.max(160, sh + dy);
+        if (dir.includes('w')) { nw = Math.max(240, sw - dx); nl = sl + (sw - nw); }
+        if (dir.includes('n')) { nh = Math.max(160, sh - dy); nt = st + (sh - nh); }
+        win.style.width = nw + 'px'; win.style.height = nh + 'px';
+        win.style.left = nl + 'px'; win.style.top = nt + 'px';
+      };
+      const up = () => { document.removeEventListener('mousemove', move); document.removeEventListener('mouseup', up); };
+      document.addEventListener('mousemove', move);
+      document.addEventListener('mouseup', up);
+      e.preventDefault(); e.stopPropagation();
+    });
+    win.appendChild(h);
+  });
+}
+
 function tbBtn(id) { return document.querySelector(`.taskbar-btn[data-win="${id}"]`); }
 function minimizeWin(id) { const w = document.getElementById(id); w.classList.add('minimized'); w.classList.remove('maximized'); tbBtn(id)?.classList.remove('active'); }
 function closeWin(id) { const w = document.getElementById(id); w.classList.add('closed'); w.classList.remove('maximized'); tbBtn(id)?.classList.remove('active'); }
@@ -353,6 +467,8 @@ function initWindows() {
         else if (t === '✕') closeWin(win.id);
       });
     });
+    makeDraggable(win);
+    makeResizable(win);
   });
   // modal close button (music page)
   document.querySelectorAll('.modal-overlay .win-btn.close').forEach(b =>
@@ -377,14 +493,8 @@ const menuConfig = {
     { label: 'Toggle Theme', action: () => toggleTheme() }
   ],
   format: [
-    { label: 'W95FA (Windows 95)', action: () => applyFont('w95') },
-    { label: 'Tahoma', action: () => applyFont('tahoma') },
-    { label: 'Verdana', action: () => applyFont('verdana') },
-    { label: 'Times New Roman', action: () => applyFont('times') },
-    { label: 'Courier New', action: () => applyFont('courier') },
-    { label: 'Comic Sans MS', action: () => applyFont('comic') },
-    { sep: true },
-    { label: 'Word Wrap', action: () => document.body.classList.toggle('wrap') }
+    { label: 'Word Wrap', action: () => document.body.classList.toggle('wrap') },
+    { label: 'Font...', action: () => showFontDialog() }
   ],
   view: [
     { label: 'Zoom In', action: () => { zoom.f = Math.min(150, zoom.f + 10); setZoom(); } },
@@ -396,7 +506,7 @@ const menuConfig = {
   help: [
     { label: 'About nxttu.', action: () => location.href = 'about.html' },
     { sep: true },
-    { label: 'Show Clippy', action: () => showClippy() }
+    { label: 'Ask Clippy', action: () => showClippy() }
   ]
 };
 function closeAllDropdowns() { document.querySelectorAll('.menu-dropdown').forEach(d => d.remove()); }
@@ -409,6 +519,7 @@ function initMenus() {
         if (existing) { existing.remove(); return; }
         closeAllDropdowns();
         const key = item.textContent.trim().toLowerCase();
+        if (key === 'help') { showClippy(); return; }
         const cfg = menuConfig[key];
         if (!cfg) return;
         const dd = document.createElement('div');

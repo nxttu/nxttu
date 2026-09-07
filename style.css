@@ -236,6 +236,7 @@ main { position: relative; z-index: 2; padding: 5.5rem 1.5rem 2rem; max-width: 1
 
 /* ===================== WIN (Windows XP window) ===================== */
 .win {
+  position: relative;
   background: var(--win-face);
   border: 2px solid;
   border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
@@ -532,10 +533,24 @@ body.black-theme .meme-target:hover { background: var(--page-text); color: var(-
 /* ===================== WINDOW STATES ===================== */
 .win.minimized, .win.closed { display: none; }
 .win.maximized {
-  position: fixed; top: 5.2rem; left: 0.6rem; right: 0.6rem; bottom: 3rem;
-  z-index: 90; margin: 0;
+  position: fixed !important; top: 5.2rem !important; left: 0.6rem !important;
+  right: 0.6rem !important; bottom: 3rem !important;
+  width: auto !important; height: auto !important; margin: 0 !important; z-index: 90;
 }
 .win.maximized .win-body { overflow: auto; max-height: calc(100vh - 11rem); }
+.win.maximized .resize-handle { display: none; }
+
+/* ===================== RESIZE HANDLES ===================== */
+.resize-handle { position: absolute; z-index: 5; }
+.rh-n  { top: -3px; left: 10px; right: 10px; height: 7px; cursor: ns-resize; }
+.rh-s  { bottom: -3px; left: 10px; right: 10px; height: 7px; cursor: ns-resize; }
+.rh-e  { right: -3px; top: 10px; bottom: 10px; width: 7px; cursor: ew-resize; }
+.rh-w  { left: -3px; top: 10px; bottom: 10px; width: 7px; cursor: ew-resize; }
+.rh-ne { top: -4px; right: -4px; width: 14px; height: 14px; cursor: nesw-resize; }
+.rh-nw { top: -4px; left: -4px; width: 14px; height: 14px; cursor: nwse-resize; }
+.rh-se { bottom: -4px; right: -4px; width: 14px; height: 14px; cursor: nwse-resize; }
+.rh-sw { bottom: -4px; left: -4px; width: 14px; height: 14px; cursor: nesw-resize; }
+.win-titlebar { cursor: move; }
 
 /* ===================== TASKBAR ===================== */
 .taskbar {
@@ -590,14 +605,30 @@ body.black-theme .menu-sep { background: var(--dim); }
   position: fixed; bottom: 3.2rem; right: 1rem; z-index: 300;
   display: none; align-items: flex-end; gap: 0.3rem;
 }
-.clippy-wrap.show { display: flex; animation: clippyIn 0.4s ease; }
-@keyframes clippyIn { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.clippy-clip { width: 88px; height: 108px; flex-shrink: 0; cursor: grab; }
+.clippy-wrap.show { display: flex; animation: clippyPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes clippyPop {
+  0%   { transform: translateY(60px) scale(0.3) rotate(-15deg); opacity: 0; }
+  60%  { transform: translateY(-8px) scale(1.08) rotate(4deg); opacity: 1; }
+  100% { transform: translateY(0) scale(1) rotate(0); opacity: 1; }
+}
+.clippy-clip { width: 88px; height: 108px; flex-shrink: 0; cursor: grab; animation: clippyBob 2.6s ease-in-out infinite; transform-origin: bottom center; }
+@keyframes clippyBob {
+  0%, 100% { transform: translateY(0) rotate(-2.5deg); }
+  50%      { transform: translateY(-7px) rotate(2.5deg); }
+}
+.clippy-clip:active { cursor: grabbing; animation: none; transform: scale(0.95); }
+.clippy-eye { animation: clippyBlink 4.5s infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes clippyBlink {
+  0%, 93%, 100% { transform: scaleY(1); }
+  96%           { transform: scaleY(0.08); }
+}
 .clippy-bubble {
   position: relative; background: #fffbe6; border: 1px solid #c2b070;
   border-radius: 8px; padding: 0.7rem 0.9rem; max-width: 230px;
   font-size: 0.72rem; color: #333; line-height: 1.5; box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+  animation: bubblePop 0.4s ease 0.15s both;
 }
+@keyframes bubblePop { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
 .clippy-bubble::after {
   content: ''; position: absolute; bottom: 16px; right: -9px;
   border: 8px solid transparent; border-left-color: #fffbe6;
@@ -609,6 +640,33 @@ body.black-theme .menu-sep { background: var(--dim); }
 .clippy-nav { margin-top: 0.55rem; display: flex; gap: 0.7rem; font-size: 0.62rem; }
 .clippy-nav span { cursor: pointer; color: #0a4fd0; text-decoration: underline; }
 .clippy-nav .clippy-x { color: #b00; }
+
+/* ===================== FONT DIALOG ===================== */
+.font-dialog-win { width: 280px; max-width: 90vw; }
+.font-dialog-win .win-titlebar { cursor: default; }
+.font-dialog-label { font-size: 0.7rem; color: var(--win-dark); margin-bottom: 0.5rem; }
+body.black-theme .font-dialog-label { color: var(--page-text); }
+.font-dialog-list {
+  border: 1px solid var(--win-shadow); background: var(--win-body);
+  max-height: 200px; overflow-y: auto; margin-bottom: 0.8rem;
+}
+body.black-theme .font-dialog-list { border-color: var(--dim); }
+.font-dialog-item {
+  padding: 0.4rem 0.7rem; font-size: 0.72rem; color: var(--win-dark); cursor: pointer;
+  border-bottom: 1px solid var(--win-shadow);
+}
+body.black-theme .font-dialog-item { color: var(--page-text); border-bottom-color: var(--dim); }
+.font-dialog-item:hover { background: var(--accent); color: #fff; }
+.font-dialog-item.selected { background: var(--accent); color: #fff; font-weight: 700; }
+.font-dialog-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
+.font-dialog-actions button {
+  font-family: var(--app-font); font-size: 0.68rem; padding: 0.3rem 1rem; cursor: pointer;
+  background: var(--btn-face); color: var(--win-dark);
+  border: 1px solid; border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  box-shadow: inset -1px -1px 0 var(--win-shadow), inset 1px 1px 0 var(--win-light);
+}
+.font-dialog-actions button:hover { filter: brightness(1.1); }
+body.black-theme .font-dialog-actions button { background: #161616; color: var(--muted); border-color: #333 #000 #000 #333; box-shadow: none; }
 
 @media (max-width: 900px) {
   .header-socials { display: none; }
