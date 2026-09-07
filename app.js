@@ -227,6 +227,21 @@ function toggleTheme() {
   applyTheme(next);
 }
 
+/* ---------- Font switching (Format menu) ---------- */
+const fontStacks = {
+  w95: "'W95FA', 'MS Sans Serif', Tahoma, Verdana, sans-serif",
+  tahoma: "Tahoma, Geneva, Verdana, sans-serif",
+  verdana: "Verdana, Geneva, sans-serif",
+  times: "'Times New Roman', Times, serif",
+  courier: "'Courier New', Courier, monospace",
+  comic: "'Comic Sans MS', 'Comic Sans', cursive"
+};
+function applyFont(key) {
+  const stack = fontStacks[key] || fontStacks.w95;
+  document.documentElement.style.setProperty('--app-font', stack);
+  localStorage.setItem('nxttu-font', key);
+}
+
 /* ---------- Clippy Q&A ---------- */
 const clippyQA = {
   en: [
@@ -362,8 +377,14 @@ const menuConfig = {
     { label: 'Toggle Theme', action: () => toggleTheme() }
   ],
   format: [
-    { label: 'Word Wrap', action: () => document.body.classList.toggle('wrap') },
-    { label: 'Font...', action: () => {} }
+    { label: 'W95FA (Windows 95)', action: () => applyFont('w95') },
+    { label: 'Tahoma', action: () => applyFont('tahoma') },
+    { label: 'Verdana', action: () => applyFont('verdana') },
+    { label: 'Times New Roman', action: () => applyFont('times') },
+    { label: 'Courier New', action: () => applyFont('courier') },
+    { label: 'Comic Sans MS', action: () => applyFont('comic') },
+    { sep: true },
+    { label: 'Word Wrap', action: () => document.body.classList.toggle('wrap') }
   ],
   view: [
     { label: 'Zoom In', action: () => { zoom.f = Math.min(150, zoom.f + 10); setZoom(); } },
@@ -415,6 +436,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (langSelector) langSelector.value = savedLang;
   applyLanguage(savedLang);
   applyTheme(savedTheme);
+  const savedFont = localStorage.getItem('nxttu-font');
+  if (savedFont) applyFont(savedFont);
 
   if (langSelector) {
     langSelector.addEventListener('change', e => {

@@ -4,8 +4,19 @@
    Toggle theme: BLACK (original dark glass)
    =================================================================== */
 
+@font-face {
+  font-family: 'W95FA';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/win95fa@5.3.0/latin-400-normal.woff2) format('woff2'),
+       url(https://cdn.jsdelivr.net/fontsource/fonts/win95fa@5.3.0/latin-400-normal.woff) format('woff');
+}
+
 :root {
   /* --- Webcore (default) --- */
+  --app-font: 'W95FA', 'MS Sans Serif', Tahoma, Verdana, sans-serif;
+  --brand-font: 'Unbounded', sans-serif;
   --page-text: #143258;
   --page-text-soft: #3a5a85;
   --muted: #5a7a9a;
@@ -70,10 +81,10 @@ body.black-theme {
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--app-font);
   color: var(--page-text);
   overflow-x: hidden;
-  cursor: crosshair;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M2 2 L2 22 L7 17 L9.5 23 L13 21.5 L10.5 15.5 L16 15.5 Z' fill='%23fff' stroke='%23000' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2, auto;
   min-height: 100vh;
   background:
     radial-gradient(circle at 22% 18%, var(--bg-glow-1), transparent 45%),
@@ -125,7 +136,7 @@ body.black-theme header {
 }
 
 .logo {
-  font-family: 'Unbounded', sans-serif;
+  font-family: var(--brand-font);
   font-weight: 900;
   font-size: 1.05rem;
   letter-spacing: -0.05em;
@@ -154,7 +165,7 @@ nav { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
 
 /* XP-style nav buttons */
 nav a, .theme-toggle, .lang-select {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--app-font);
   font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -239,7 +250,7 @@ body.black-theme .win {
 .win-titlebar {
   background: var(--title-grad);
   color: var(--title-text);
-  font-family: 'Unbounded', sans-serif;
+  font-family: var(--app-font);
   font-weight: 700;
   font-size: 0.78rem;
   letter-spacing: 0.02em;
@@ -264,7 +275,7 @@ body.black-theme .win {
   display: flex; align-items: center; justify-content: center;
   font-size: 10px; color: #000; font-weight: 700; line-height: 1;
   cursor: default;
-  font-family: 'Space Mono', monospace;
+  font-family: var(--app-font);
 }
 .win-btn.close { color: #b00; }
 .win-btn:hover { filter: brightness(1.1); }
@@ -288,7 +299,7 @@ body.black-theme .win-body { background: var(--win-body); }
   gap: 1rem;
   font-size: 0.66rem;
   color: var(--win-dark);
-  font-family: 'Space Mono', monospace;
+  font-family: var(--app-font);
 }
 .win-menu span u { text-decoration: underline; }
 body.black-theme .win-menu { background: #111; border-bottom-color: var(--dim); color: var(--muted); }
@@ -298,7 +309,7 @@ body.black-theme .win-menu { background: #111; border-bottom-color: var(--dim); 
 .hero-body { position: relative; overflow: hidden; padding: 2.5rem 2rem; }
 .hero-bg-text {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-family: var(--brand-font); font-weight: 900;
   font-size: clamp(6rem, 18vw, 16rem);
   color: rgba(74,130,184,0.08);
   white-space: nowrap; pointer-events: none; user-select: none;
@@ -307,7 +318,7 @@ body.black-theme .win-menu { background: #111; border-bottom-color: var(--dim); 
 body.black-theme .hero-bg-text { color: var(--dim); }
 .hero-tag { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; position: relative; }
 .hero-name {
-  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-family: var(--brand-font); font-weight: 900;
   font-size: clamp(3rem, 8vw, 6.5rem); line-height: 0.9;
   letter-spacing: -0.04em; color: var(--page-text); margin-bottom: 1.5rem; position: relative;
 }
@@ -320,7 +331,7 @@ body.black-theme .hero-name span { color: var(--muted); }
 body.black-theme .hero-desc { border-left-color: var(--dim); color: var(--muted); }
 .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; position: relative; }
 .stat { display: flex; flex-direction: column; gap: 0.25rem; }
-.stat-num { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.7rem; color: var(--page-text); letter-spacing: -0.03em; }
+.stat-num { font-family: var(--app-font); font-weight: 700; font-size: 1.7rem; color: var(--page-text); letter-spacing: -0.03em; }
 .stat-label { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
 body.black-theme .stat-num { color: var(--page-text); }
 
@@ -376,7 +387,7 @@ body.black-theme .desk-icon-ic { background: #161616; border-color: #333 #000 #0
 
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
 .about-title {
-  font-family: 'Unbounded', sans-serif; font-weight: 700;
+  font-family: var(--app-font); font-weight: 700;
   font-size: clamp(1.6rem, 4vw, 2.8rem); line-height: 1.05;
   letter-spacing: -0.03em; color: var(--page-text); margin-bottom: 1.5rem;
 }
@@ -393,7 +404,7 @@ body.black-theme .about-body em { color: var(--page-text); }
 }
 body.black-theme .tl-item { border-bottom-color: var(--dim); }
 .tl-item:last-child { border-bottom: none; }
-.tl-year { font-family: 'Unbounded', sans-serif; font-weight: 200; font-size: 0.72rem; color: var(--muted); padding-top: 0.1rem; }
+.tl-year { font-family: var(--app-font); font-weight: 200; font-size: 0.72rem; color: var(--muted); padding-top: 0.1rem; }
 .tl-content h4 { font-size: 0.8rem; font-weight: 700; color: var(--page-text); margin-bottom: 0.25rem; }
 .tl-content p { font-size: 0.72rem; color: var(--muted); line-height: 1.7; }
 
@@ -413,7 +424,7 @@ body.black-theme .album-card:hover { box-shadow: 0 0 25px rgba(245,245,245,0.15)
 body.black-theme .album-card.white .album-dot { background: var(--page-text); }
 .album-card.era3 .album-dot { background: transparent; border: 1px dashed #888; }
 .album-era { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
-.album-title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--page-text); margin-bottom: 0.8rem; letter-spacing: -0.02em; }
+.album-title { font-family: var(--app-font); font-weight: 700; font-size: 1.05rem; color: var(--page-text); margin-bottom: 0.8rem; letter-spacing: -0.02em; }
 .album-desc { font-size: 0.72rem; line-height: 1.8; color: var(--page-text-soft); margin-bottom: 1.2rem; }
 body.black-theme .album-desc { color: var(--muted); }
 .album-tracks { list-style: none; }
@@ -432,7 +443,7 @@ body.black-theme .album-tracks li { color: var(--muted); border-bottom-color: va
 .album-link:hover { color: var(--link-hover); text-decoration: underline; }
 body.black-theme .album-link { color: var(--page-text); }
 .tbc-btn {
-  display: inline-block; font-family: 'Space Mono', monospace; background: var(--btn-face);
+  display: inline-block; font-family: var(--app-font); background: var(--btn-face);
   font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--win-dark);
   border: 1px solid; border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
   box-shadow: inset -1px -1px 0 var(--win-shadow), inset 1px 1px 0 var(--win-light);
@@ -468,7 +479,7 @@ body.black-theme .tbc-btn:hover { background: var(--page-text); color: var(--win
 body.black-theme .stats-row { background: var(--dim); border-color: var(--dim); }
 .stat-box { background: var(--win-body); padding: 1.5rem 1rem; }
 .stat-box-year { font-size: 0.58rem; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 0.8rem; text-transform: uppercase; }
-.stat-box-num { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 1.5rem; color: var(--page-text); letter-spacing: -0.04em; margin-bottom: 0.25rem; }
+.stat-box-num { font-family: var(--app-font); font-weight: 900; font-size: 1.5rem; color: var(--page-text); letter-spacing: -0.04em; margin-bottom: 0.25rem; }
 .stat-box-sub { font-size: 0.6rem; color: var(--muted); }
 body.black-theme .stat-box { background: var(--win-body); }
 body.black-theme .stat-box-num { color: var(--page-text); }
@@ -485,7 +496,7 @@ body.black-theme .links-grid { background: var(--dim); border-color: var(--dim);
 body.black-theme .link-item { background: var(--win-body); }
 body.black-theme .link-item:hover { background: rgba(245,245,245,0.06); box-shadow: inset 0 0 15px rgba(245,245,245,0.05), 0 0 25px rgba(245,245,245,0.1); }
 .link-platform { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-.link-name { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--page-text); letter-spacing: -0.02em; }
+.link-name { font-family: var(--app-font); font-weight: 700; font-size: 0.88rem; color: var(--page-text); letter-spacing: -0.02em; }
 .link-arrow { font-size: 1rem; color: var(--muted); margin-top: auto; padding-top: 0.8rem; transition: transform 0.2s; }
 .link-item:hover .link-arrow { transform: translate(3px, -3px); color: var(--accent); }
 
@@ -506,7 +517,7 @@ body.black-theme .meme-target:hover { background: var(--page-text); color: var(-
 /* page heading */
 .page-head { margin-bottom: 1.5rem; }
 .page-title {
-  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-family: var(--app-font); font-weight: 900;
   font-size: clamp(1.8rem, 5vw, 3rem); letter-spacing: -0.04em; color: var(--page-text);
   line-height: 1;
 }
@@ -535,14 +546,14 @@ body.black-theme .meme-target:hover { background: var(--page-text); color: var(-
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
 }
 .taskbar-start {
-  font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.72rem; color: #fff;
+  font-family: var(--brand-font); font-weight: 700; font-size: 0.72rem; color: #fff;
   background: linear-gradient(to bottom, #6fb53a, #3d8a1a);
   border: 1px solid; border-color: #aee88a #2c6a12 #2c6a12 #aee88a;
   padding: 0.22rem 0.7rem; cursor: pointer; text-shadow: 1px 1px 1px rgba(0,0,0,0.45);
   flex-shrink: 0;
 }
 .taskbar-btn {
-  background: var(--btn-face); color: var(--win-dark); font-family: 'Space Mono', monospace;
+  background: var(--btn-face); color: var(--win-dark); font-family: var(--app-font);
   font-size: 0.64rem; padding: 0.2rem 0.55rem; cursor: pointer; max-width: 170px;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   border: 1px solid; border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
