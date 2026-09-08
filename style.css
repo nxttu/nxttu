@@ -84,7 +84,8 @@ body {
   font-family: var(--app-font);
   color: var(--page-text);
   overflow-x: hidden;
-  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='32'%20height='32'%20viewBox='0%200%2032%2032'%3E%3Cpath%20d='M3%203%20L3%2026%20L8%2021%20L11%2028%20L15%2026.5%20L12%2019%20L19%2019%20Z'%20fill='%23fff'%20stroke='%23000'%20stroke-width='2'%20stroke-linejoin='round'/%3E%3C/svg%3E") 3 3, auto;
+  display: flex; flex-direction: column;
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='22'%20height='22'%20viewBox='0%200%2032%2032'%3E%3Cpath%20d='M3%203%20L3%2026%20L8%2021%20L11%2028%20L15%2026.5%20L12%2019%20L19%2019%20Z'%20fill='%23fff'%20stroke='%23000'%20stroke-width='2'%20stroke-linejoin='round'/%3E%3C/svg%3E") 2 2, auto;
   min-height: 100vh;
   background:
     radial-gradient(circle at 22% 18%, var(--bg-glow-1), transparent 45%),
@@ -232,7 +233,7 @@ body.black-theme .header-socials a.social-hot { color: var(--page-text); }
 body.black-theme .header-socials a.social-hot::after { background: var(--page-text); }
 
 /* ===================== LAYOUT ===================== */
-main { position: relative; z-index: 2; padding: 5.5rem 1.5rem 2rem; max-width: 1200px; margin: 0 auto; }
+main { position: relative; z-index: 2; padding: 5.5rem 1.5rem 2rem; max-width: 1200px; margin: 0 auto; flex: 1 0 auto; }
 
 /* ===================== WIN (Windows XP window) ===================== */
 .win {
@@ -506,7 +507,7 @@ footer {
   padding: 1.5rem 1.5rem; border-top: 1px solid var(--win-shadow);
   display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;
   max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;
-  color: var(--muted);
+  color: var(--muted); flex-shrink: 0;
 }
 body.black-theme footer { border-top-color: var(--dim); }
 footer p { font-size: 0.64rem; letter-spacing: 0.05em; }

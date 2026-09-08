@@ -24,10 +24,9 @@
   resize();
   addEventListener("resize", resize);
 
-  const mouse = {
-    x: innerWidth / 2,
-    y: innerHeight / 2
-  };
+  const mouse = { x: innerWidth / 2, y: innerHeight / 2 };
+  const vel = { x: 0, y: 0 };
+  let lastX = mouse.x, lastY = mouse.y;
 
   const trail = [];
 
@@ -37,13 +36,14 @@
   let hueSpeed = 1.5;
 
   for (let i = 0; i < trailLength; i++) {
-    trail.push({
-      x: mouse.x,
-      y: mouse.y
-    });
+    trail.push({ x: mouse.x, y: mouse.y });
   }
 
   window.addEventListener("mousemove", e => {
+    vel.x = e.clientX - lastX;
+    vel.y = e.clientY - lastY;
+    lastX = e.clientX;
+    lastY = e.clientY;
     mouse.x = e.clientX;
     mouse.y = e.clientY;
   });
@@ -53,12 +53,19 @@
   }
 
   function updateTrail() {
-    trail[0].x = lerp(trail[0].x, mouse.x, 0.5);
-    trail[0].y = lerp(trail[0].y, mouse.y, 0.5);
+    // швидкість затухає, коли курсор нерухомий — хвіст стягується до курсора
+    vel.x *= 0.8;
+    vel.y *= 0.8;
 
+    trail[0].x = lerp(trail[0].x, mouse.x, 0.6);
+    trail[0].y = lerp(trail[0].y, mouse.y, 0.6);
+
+    // точки випереджають курсор у напрямку руху (хвіст веде, не відстає)
     for (let i = 1; i < trail.length; i++) {
-      trail[i].x = lerp(trail[i].x, trail[i - 1].x, 0.5);
-      trail[i].y = lerp(trail[i].y, trail[i - 1].y, 0.5);
+      const tx = mouse.x + vel.x * i * 0.5;
+      const ty = mouse.y + vel.y * i * 0.5;
+      trail[i].x = lerp(trail[i].x, tx, 0.5);
+      trail[i].y = lerp(trail[i].y, ty, 0.5);
     }
   }
 
@@ -98,7 +105,8 @@
 
     hue += hueSpeed;
   }
-    function animate() {
+
+  function animate() {
     updateTrail();
     drawTrail();
     requestAnimationFrame(animate);
