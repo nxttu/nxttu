@@ -288,7 +288,7 @@ function showFontDialog() {
   });
   const close = restore => {
     if (restore) applyFont(prevFont);
-    overlay.classList.remove('active');
+    overlay.remove();
   };
   overlay.querySelector('.fd-ok').addEventListener('click', () => { applyFont(selected); close(false); });
   overlay.querySelector('.fd-cancel').addEventListener('click', () => close(true));
@@ -407,10 +407,10 @@ function makeResizable(win) {
       const move = ev => {
         const dx = ev.clientX - sx, dy = ev.clientY - sy;
         let nw = sw, nh = sh, nl = sl, nt = st;
-        if (dir.includes('e')) nw = Math.max(240, sw + dx);
-        if (dir.includes('s')) nh = Math.max(160, sh + dy);
-        if (dir.includes('w')) { nw = Math.max(240, sw - dx); nl = sl + (sw - nw); }
-        if (dir.includes('n')) { nh = Math.max(160, sh - dy); nt = st + (sh - nh); }
+        if (dir.includes('e')) nw = Math.max(200, sw + dx);
+        if (dir.includes('s')) nh = Math.max(140, sh + dy);
+        if (dir.includes('w')) { nw = Math.max(200, sw - dx); nl = sl + (sw - nw); }
+        if (dir.includes('n')) { nh = Math.max(140, sh - dy); nt = st + (sh - nh); }
         win.style.width = nw + 'px'; win.style.height = nh + 'px';
         win.style.left = nl + 'px'; win.style.top = nt + 'px';
       };

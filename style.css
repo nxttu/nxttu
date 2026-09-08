@@ -84,7 +84,7 @@ body {
   font-family: var(--app-font);
   color: var(--page-text);
   overflow-x: hidden;
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M2 2 L2 22 L7 17 L9.5 23 L13 21.5 L10.5 15.5 L16 15.5 Z' fill='%23fff' stroke='%23000' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2, auto;
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='32'%20height='32'%20viewBox='0%200%2032%2032'%3E%3Cpath%20d='M3%203%20L3%2026%20L8%2021%20L11%2028%20L15%2026.5%20L12%2019%20L19%2019%20Z'%20fill='%23fff'%20stroke='%23000'%20stroke-width='2'%20stroke-linejoin='round'/%3E%3C/svg%3E") 3 3, auto;
   min-height: 100vh;
   background:
     radial-gradient(circle at 22% 18%, var(--bg-glow-1), transparent 45%),
@@ -457,7 +457,7 @@ body.black-theme .tbc-btn:hover { background: var(--page-text); color: var(--win
 /* MODAL */
 .modal-overlay {
   position: fixed; inset: 0; background: rgba(5,10,30,0.55); backdrop-filter: blur(6px);
-  z-index: 1000; display: flex; align-items: center; justify-content: center;
+  z-index: 9500; display: flex; align-items: center; justify-content: center;
   opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
 .modal-overlay.active { opacity: 1; pointer-events: auto; }
@@ -554,7 +554,7 @@ body.black-theme .meme-target:hover { background: var(--page-text); color: var(-
 
 /* ===================== TASKBAR ===================== */
 .taskbar {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 95;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 9000;
   height: 2.6rem; display: flex; align-items: center; gap: 0.3rem;
   padding: 0.3rem 0.4rem; background: var(--title-grad);
   border-top: 2px solid var(--win-dark);
